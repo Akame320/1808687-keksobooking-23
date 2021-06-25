@@ -14,32 +14,21 @@ const getRandomFloat = (minNumber, maxNumber, precision = -1) => {
   return +(Math.random() * (maxNumber - minNumber) + minNumber).toFixed(precision);
 };
 
-function getRandomInt(minNumber, maxNumber) {
-  return getRandomFloat(minNumber, maxNumber, 0);
-}
+const getRandomInt = (minNumber, maxNumber) => getRandomFloat(minNumber, maxNumber, 0);
 
-function addLeadingZeroIfNeeded(randomNumberForAvatar) {
-  if (randomNumberForAvatar <= 9) {
-    return `img/avatars/user0${randomNumberForAvatar}`;
-  }
-  return `img/avatars/user${randomNumberForAvatar}`;
-}
+const addLeadingZeroIfNeeded = (randomNumberForAvatar) => randomNumberForAvatar <= 9 ? `0${randomNumberForAvatar}` : `${randomNumberForAvatar}`;
 
-function getRandomElementFromArray(array) {
-  return array[getRandomInt(0, array.length - 1)];
-}
+const getRandomElementFromArray = (array) => array[getRandomInt(0, array.length - 1)];
 
-function getShuffledArray(array) {
-  return array.slice().sort(function () { return Math.random() - 0.5; });
-}
+const getShuffledArray = (array) => array.slice().sort(() => Math.random() - 0.5);
 
-function generateOffer() {
+const generateOffer = () => {
   const lat = getRandomFloat(LAT_START, LAT_END, 5);
   const lng = getRandomFloat(LNG_START, LNG_END, 5);
 
   return {
     author: {
-      avatar: addLeadingZeroIfNeeded(getRandomInt(0, 10)),
+      avatar: `img/avatars/user${addLeadingZeroIfNeeded(getRandomInt(0, 10))}.png`,
     },
     location: {
       lat: lat,
@@ -59,6 +48,7 @@ function generateOffer() {
       PHOTOS: getShuffledArray(PHOTOS),
     },
   };
-}
+};
 
+// eslint-disable-next-line no-unused-vars
 const offers = new Array(10).fill(null).map(generateOffer);
