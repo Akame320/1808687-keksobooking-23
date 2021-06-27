@@ -1,4 +1,4 @@
-import {generateOffer} from './init.js';
+import {generateOffer} from './mock.js';
 
 const QUANTITY_OFFERS = 10;
 
