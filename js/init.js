@@ -1,4 +1,4 @@
-import {getRandomFloat, getRandomInt} from './util.js';
+import {getRandomFloat, getRandomInt} from './mock.js';
 
 const OFFER_TYPES = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
 const TYPES_CHECKS = ['12:00', '13:00', '14:00'];
@@ -43,7 +43,4 @@ const generateOffer = () => {
   };
 };
 
-// eslint-disable-next-line no-unused-vars
-const offers = new Array(10).fill(null).map(generateOffer);
-
-export {offers};
+export {generateOffer};

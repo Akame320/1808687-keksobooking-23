@@ -1,2 +1,6 @@
+import {generateOffer} from './init.js';
+
+const QUANTITY_OFFERS = 10;
+
 // eslint-disable-next-line no-unused-vars
-import {offers} from './init.js';
+const offers = new Array(QUANTITY_OFFERS).fill(null).map(generateOffer);
