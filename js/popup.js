@@ -4,15 +4,15 @@ const translateType = {
   house: 'Дом',
   palace: 'Дворец',
   hotel: 'Отель',
-}
+};
 
-const generateSrcToImg = photos => photos.map(item => `<img src='${item}'>`)
+const generateSrcToImg = (photos) => photos.map((item) => `<img src='${item}'>`);
 
 const isDataForOut = (elem, data) => {
   if(!data){
     elem.style.display = 'none';
   }
-}
+};
 
 const showPopup = (offer) => {
   const templateOffer = document.getElementById('card').content;
@@ -24,7 +24,7 @@ const showPopup = (offer) => {
   popup.querySelector('.popup__type').innerText               = translateType[offer.offer.type];
   popup.querySelector('.popup__text--capacity').innerText     = `${offer.offer.rooms} комнаты для  ${offer.offer.guests} гостей`;
   popup.querySelector('.popup__text--time').innerText         = ` Заезд после  ${offer.offer.checkin}, выезд до ${offer.offer.checkout} гостей`;
-  popup.querySelector('.popup__features').innerText           = offer.offer.features.map(item => item);
+  popup.querySelector('.popup__features').innerText           = offer.offer.features.map((item) => item);
   popup.querySelector('.popup__description').innerText        = offer.offer.description;
   popup.querySelector('.popup__photos').innerHTML             = generateSrcToImg(offer.offer.photos);
   popup.querySelector('.popup__avatar').setAttribute('src', offer.author.avatar);
@@ -46,7 +46,7 @@ const showPopup = (offer) => {
   fragment.appendChild(popup);
 
   document.getElementById('map-canvas').appendChild(fragment);
-}
+};
 
 
 export {showPopup};

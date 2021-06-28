@@ -37,7 +37,7 @@ const generateOffer = () => {
       checkin: getRandomElementFromArray(TYPES_CHECKS),
       checkout: getRandomElementFromArray(TYPES_CHECKS),
       features: getShuffledArray(TYPES_FEATURES),
-      // description: 'Описание квартиры',
+      description: 'Описание квартиры',
       photos: getShuffledArray(PHOTOS),
     },
   };

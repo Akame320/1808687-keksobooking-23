@@ -1,5 +1,5 @@
 import {generateOffer} from './mock.js';
-import {showPopup} from './popup.js'
+import {showPopup} from './popup.js';
 
 const QUANTITY_OFFERS = 10;
 
