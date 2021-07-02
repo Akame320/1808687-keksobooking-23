@@ -1,46 +1,68 @@
-const translateType = {
+const OfferTypeName = {
   flat: 'Квартира',
   bungalow: 'Бунгало',
   house: 'Дом',
   palace: 'Дворец',
   hotel: 'Отель',
 };
+const popupTemplate = document.getElementById('card').content;
+const popup = popupTemplate.cloneNode(true);
 
-const generateSrcToImg = (photos) => photos.map((item) => `<img src='${item}'>`);
+const popupTitle = popup.querySelector('.popup__title');
+const popupAddress = popup.querySelector('.popup__text--address');
+const popupPrice = popup.querySelector('.popup__text--price');
+const popupType = popup.querySelector('.popup__type');
+const popupCapacity = popup.querySelector('.popup__text--capacity');
+const popupTime = popup.querySelector('.popup__text--time');
+const popupFeature = popup.querySelector('.popup__feature');
+const popupDescription = popup.querySelector('.popup__description');
+const popupPhotos = popup.querySelector('.popup__photos');
+const popupAvatar = popup.querySelector('.popup__avatar');
 
-const isDataForOut = (elem, data) => {
-  if(!data){
-    elem.style.display = 'none';
+const imgFragment = document.createDocumentFragment();
+
+const setContentIfPresent = (element, content) => {
+  if (content) {
+    element.innerText = content;
+  } else {
+    element.style.display = 'none';
+  }
+};
+
+const setImgIfPresent = (element, content) => {
+  if(content){
+    for(const src of content){
+      const newImgFragment = document.createElement('img');
+      newImgFragment.setAttribute('src', src);
+      imgFragment.appendChild(newImgFragment);
+    }
+    element.appendChild(imgFragment);
+  }else{
+    element.style.display = 'none';
+  }
+};
+
+const setSrcToImgIfPresent = (element, src) =>{
+  if(src){
+    element.setAttribute('src', src);
+  }else{
+    element.style.display = 'none';
   }
 };
 
 const showPopup = (offer) => {
-  const templateOffer = document.getElementById('card').content;
-  const popup = templateOffer.cloneNode(true);
 
-  popup.querySelector('.popup__title').innerText              = offer.offer.title;
-  popup.querySelector('.popup__text--address').innerText      = offer.offer.address;
-  popup.querySelector('.popup__text--price').innerText        = `${offer.offer.price} ₽/ночь`;
-  popup.querySelector('.popup__type').innerText               = translateType[offer.offer.type];
-  popup.querySelector('.popup__text--capacity').innerText     = `${offer.offer.rooms} комнаты для  ${offer.offer.guests} гостей`;
-  popup.querySelector('.popup__text--time').innerText         = ` Заезд после  ${offer.offer.checkin}, выезд до ${offer.offer.checkout} гостей`;
-  popup.querySelector('.popup__features').innerText           = offer.offer.features.map((item) => item);
-  popup.querySelector('.popup__description').innerText        = offer.offer.description;
-  popup.querySelector('.popup__photos').innerHTML             = generateSrcToImg(offer.offer.photos);
-  popup.querySelector('.popup__avatar').setAttribute('src', offer.author.avatar);
-
-  isDataForOut(popup.querySelector('.popup__title'), offer.offer.title);
-  isDataForOut(popup.querySelector('.popup__text--address'), offer.offer.address);
-  isDataForOut(popup.querySelector('.popup__text--price'), offer.offer.price);
-  isDataForOut(popup.querySelector('.popup__type'), offer.offer.type);
-  isDataForOut(popup.querySelector('.popup__text--capacity'), offer.offer.rooms);
-  isDataForOut(popup.querySelector('.popup__text--capacity'), offer.offer.guests);
-  isDataForOut(popup.querySelector('.popup__text--time'), offer.offer.checkin);
-  isDataForOut(popup.querySelector('.popup__text--time'), offer.offer.checkout);
-  isDataForOut(popup.querySelector('.popup__features'), offer.offer.features);
-  isDataForOut(popup.querySelector('.popup__description'), offer.offer.description);
-  isDataForOut(popup.querySelector('.popup__photos'), offer.offer.photos);
-  isDataForOut(popup.querySelector('.popup__avatar'), offer.offer.avatar);
+  setContentIfPresent(popupTitle, offer.offer.title);
+  setContentIfPresent(popupAddress, offer.offer.address);
+  setContentIfPresent(popupPrice, `${offer.offer.price} + ₽/ночь`);
+  setContentIfPresent(popupType, OfferTypeName[offer.offer.type]);
+  setContentIfPresent(popupCapacity, `${offer.offer.rooms} комнаты для  ${offer.offer.guests} гостей`);
+  setContentIfPresent(popupTime, `Заезд после  ${offer.offer.checkin}, выезд до ${offer.offer.checkout} гостей`);
+  setContentIfPresent(popupFeature, offer.offer.features.forEach((item) => item));
+  setContentIfPresent(popupDescription, offer.offer.description);
+  setContentIfPresent(popupDescription, offer.offer.description);
+  setImgIfPresent(popupPhotos, offer.offer.photos);
+  setSrcToImgIfPresent(popupAvatar, offer.author.avatar);
 
   const fragment = document.createDocumentFragment();
   fragment.appendChild(popup);
