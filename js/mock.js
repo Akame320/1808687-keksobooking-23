@@ -38,7 +38,7 @@ const generateOffer = () => {
       checkout: getRandomElementFromArray(TYPES_CHECKS),
       features: getShuffledArray(TYPES_FEATURES),
       description: 'Описание квартиры',
-      PHOTOS: getShuffledArray(PHOTOS),
+      photos: getShuffledArray(PHOTOS),
     },
   };
 };
