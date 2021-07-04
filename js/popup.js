@@ -1,3 +1,11 @@
+//Раньше у меня было так. Но мой объект  OfferTypeName нарушает правило Б8
+//Но код работал.
+//Работал он так... Ключи из OfferTypeName совпадали с значениями в OFFER_TYPES котоырй в mock.js
+//Соотвественно мы могли "руссифицировать" наши типы жилья так => OfferTypeName['сюда значение из OFFER_TYPES']
+//Значения из OFFER_TYPES совпадают с сключами из OfferTypeName и ключ нам выводит СВОЕ значение на РУССКОМ
+//Теперь нам надо переименовать ключи из OfferTypeName в верхний регистер, а значит значения из OFFER_TYPES не будут == с key OfferTypeName
+//Что бы функционал руссфицирования остался я рещшил написать сортировку или модернизировать масив OFFER_TYPES.
+//Массив OFFER_TYPES будет включать в себя объект. В котором будут ключи RU/EN типа
 const OfferTypeName = {
   flat: 'Квартира',
   bungalow: 'Бунгало',
@@ -5,7 +13,7 @@ const OfferTypeName = {
   palace: 'Дворец',
   hotel: 'Отель',
 };
-const popupTemplate = document.getElementById('card').content;
+const popupTemplate = document.querySelector('#card').content;
 const popup = popupTemplate.cloneNode(true);
 
 const popupTitle = popup.querySelector('.popup__title');
@@ -34,6 +42,8 @@ const setImgIfPresent = (element, content) => {
     for(const src of content){
       const newImgFragment = document.createElement('img');
       newImgFragment.setAttribute('src', src);
+      newImgFragment.setAttribute('alt', 'Фотография жилья');
+      newImgFragment.setAttribute('class', '');
       imgFragment.appendChild(newImgFragment);
     }
     element.appendChild(imgFragment);
@@ -64,10 +74,7 @@ const showPopup = (offer) => {
   setImgIfPresent(popupPhotos, offer.offer.photos);
   setSrcToImgIfPresent(popupAvatar, offer.author.avatar);
 
-  const fragment = document.createDocumentFragment();
-  fragment.appendChild(popup);
-
-  document.getElementById('map-canvas').appendChild(fragment);
+  document.querySelector('#map-canvas').appendChild(popup);
 };
 
 
