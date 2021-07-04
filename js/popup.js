@@ -1,17 +1,9 @@
-//Раньше у меня было так. Но мой объект  OfferTypeName нарушает правило Б8
-//Но код работал.
-//Работал он так... Ключи из OfferTypeName совпадали с значениями в OFFER_TYPES котоырй в mock.js
-//Соотвественно мы могли "руссифицировать" наши типы жилья так => OfferTypeName['сюда значение из OFFER_TYPES']
-//Значения из OFFER_TYPES совпадают с сключами из OfferTypeName и ключ нам выводит СВОЕ значение на РУССКОМ
-//Теперь нам надо переименовать ключи из OfferTypeName в верхний регистер, а значит значения из OFFER_TYPES не будут == с key OfferTypeName
-//Что бы функционал руссфицирования остался я рещшил написать сортировку или модернизировать масив OFFER_TYPES.
-//Массив OFFER_TYPES будет включать в себя объект. В котором будут ключи RU/EN типа
 const OfferTypeName = {
-  flat: 'Квартира',
-  bungalow: 'Бунгало',
-  house: 'Дом',
-  palace: 'Дворец',
-  hotel: 'Отель',
+  FLAT: 'Квартира',
+  BUNGALOW: 'Бунгало',
+  HOUSE: 'Дом',
+  PALACE: 'Дворец',
+  HOTEL: 'Отель',
 };
 const popupTemplate = document.querySelector('#card').content;
 const popup = popupTemplate.cloneNode(true);
@@ -43,7 +35,9 @@ const setImgIfPresent = (element, content) => {
       const newImgFragment = document.createElement('img');
       newImgFragment.setAttribute('src', src);
       newImgFragment.setAttribute('alt', 'Фотография жилья');
-      newImgFragment.setAttribute('class', '');
+      newImgFragment.setAttribute('width', '45');
+      newImgFragment.setAttribute('height', '40');
+      newImgFragment.classList.add('popup__photo');
       imgFragment.appendChild(newImgFragment);
     }
     element.appendChild(imgFragment);
@@ -60,12 +54,19 @@ const setSrcToImgIfPresent = (element, src) =>{
   }
 };
 
-const showPopup = (offer) => {
+const setTypeIfPresent = (element, type) => {
+  if(element){
+    const getKeyForOfferTypeName = type.toUpperCase();
+    element.innerText = OfferTypeName[getKeyForOfferTypeName];
+  }else{
+    element.style.display = 'none';
+  }
+};
 
+const showPopup = (offer) => {
   setContentIfPresent(popupTitle, offer.offer.title);
   setContentIfPresent(popupAddress, offer.offer.address);
   setContentIfPresent(popupPrice, `${offer.offer.price} + ₽/ночь`);
-  setContentIfPresent(popupType, OfferTypeName[offer.offer.type]);
   setContentIfPresent(popupCapacity, `${offer.offer.rooms} комнаты для  ${offer.offer.guests} гостей`);
   setContentIfPresent(popupTime, `Заезд после  ${offer.offer.checkin}, выезд до ${offer.offer.checkout} гостей`);
   setContentIfPresent(popupFeature, offer.offer.features.forEach((item) => item));
@@ -73,6 +74,7 @@ const showPopup = (offer) => {
   setContentIfPresent(popupDescription, offer.offer.description);
   setImgIfPresent(popupPhotos, offer.offer.photos);
   setSrcToImgIfPresent(popupAvatar, offer.author.avatar);
+  setTypeIfPresent(popupType, offer.offer.type);
 
   document.querySelector('#map-canvas').appendChild(popup);
 };
