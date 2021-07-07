@@ -19,46 +19,47 @@ const popupDescription = popup.querySelector('.popup__description');
 const popupPhotos = popup.querySelector('.popup__photos');
 const popupAvatar = popup.querySelector('.popup__avatar');
 
-const imgFragment = document.createDocumentFragment();
+const mapCanvas = document.querySelector('#map-canvas');
+
+const popupPhotosImgFragment = document.createDocumentFragment();
 
 const setContentIfPresent = (element, content) => {
   if (content) {
-    element.innerText = content;
+    element.textContent = content;
   } else {
     element.style.display = 'none';
   }
 };
 
 const setImgIfPresent = (element, content) => {
-  if(content){
+  if (content){
     for(const src of content){
-      const newImgFragment = document.createElement('img');
-      newImgFragment.setAttribute('src', src);
-      newImgFragment.setAttribute('alt', 'Фотография жилья');
-      newImgFragment.setAttribute('width', '45');
-      newImgFragment.setAttribute('height', '40');
-      newImgFragment.classList.add('popup__photo');
-      imgFragment.appendChild(newImgFragment);
+      const photoElement = document.createElement('img');
+      photoElement.setAttribute('src', src);
+      photoElement.setAttribute('alt', 'Фотография жилья');
+      photoElement.setAttribute('width', '45');
+      photoElement.setAttribute('height', '40');
+      photoElement.classList.add('popup__photo');
+      popupPhotosImgFragment.appendChild(photoElement);
     }
-    element.appendChild(imgFragment);
-  }else{
+    element.appendChild(popupPhotosImgFragment);
+  } else {
     element.style.display = 'none';
   }
 };
 
 const setSrcToImgIfPresent = (element, src) =>{
-  if(src){
+  if (src){
     element.setAttribute('src', src);
-  }else{
+  } else {
     element.style.display = 'none';
   }
 };
 
 const setTypeIfPresent = (element, type) => {
-  if(element){
-    const getKeyForOfferTypeName = type.toUpperCase();
-    element.innerText = OfferTypeName[getKeyForOfferTypeName];
-  }else{
+  if (element){
+    element.innerText = OfferTypeName[type.toUpperCase()];
+  } else {
     element.style.display = 'none';
   }
 };
@@ -71,12 +72,11 @@ const showPopup = (offer) => {
   setContentIfPresent(popupTime, `Заезд после  ${offer.offer.checkin}, выезд до ${offer.offer.checkout} гостей`);
   setContentIfPresent(popupFeature, offer.offer.features.forEach((item) => item));
   setContentIfPresent(popupDescription, offer.offer.description);
-  setContentIfPresent(popupDescription, offer.offer.description);
   setImgIfPresent(popupPhotos, offer.offer.photos);
   setSrcToImgIfPresent(popupAvatar, offer.author.avatar);
   setTypeIfPresent(popupType, offer.offer.type);
 
-  document.querySelector('#map-canvas').appendChild(popup);
+  mapCanvas.appendChild(popup);
 };
 
 
