@@ -6,18 +6,6 @@ const OfferTypeName = {
   HOTEL: 'Отель',
 };
 const popupTemplate = document.querySelector('#card').content;
-const popup = popupTemplate.cloneNode(true);
-
-const popupTitle = popup.querySelector('.popup__title');
-const popupAddress = popup.querySelector('.popup__text--address');
-const popupPrice = popup.querySelector('.popup__text--price');
-const popupType = popup.querySelector('.popup__type');
-const popupCapacity = popup.querySelector('.popup__text--capacity');
-const popupTime = popup.querySelector('.popup__text--time');
-const popupFeature = popup.querySelector('.popup__feature');
-const popupDescription = popup.querySelector('.popup__description');
-const popupPhotos = popup.querySelector('.popup__photos');
-const popupAvatar = popup.querySelector('.popup__avatar');
 
 const mapCanvas = document.querySelector('#map-canvas');
 
@@ -65,6 +53,18 @@ const setTypeIfPresent = (element, type) => {
 };
 
 const showPopup = (offer) => {
+  const popup = popupTemplate.cloneNode(true);
+  const popupTitle = popup.querySelector('.popup__title');
+  const popupAddress = popup.querySelector('.popup__text--address');
+  const popupPrice = popup.querySelector('.popup__text--price');
+  const popupType = popup.querySelector('.popup__type');
+  const popupCapacity = popup.querySelector('.popup__text--capacity');
+  const popupTime = popup.querySelector('.popup__text--time');
+  const popupFeature = popup.querySelector('.popup__feature');
+  const popupDescription = popup.querySelector('.popup__description');
+  const popupPhotos = popup.querySelector('.popup__photos');
+  const popupAvatar = popup.querySelector('.popup__avatar');
+
   setContentIfPresent(popupTitle, offer.offer.title);
   setContentIfPresent(popupAddress, offer.offer.address);
   setContentIfPresent(popupPrice, `${offer.offer.price} + ₽/ночь`);
