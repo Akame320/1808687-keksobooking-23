@@ -3,8 +3,10 @@ const inputAdForm = document.querySelectorAll('.ad-form__element');
 
 const selectCapacity = adForm.querySelector('#capacity');
 const selectRoom = adForm.querySelector('#room_number');
-const inputPrice = adForm.querySelector('#price');
 const selectTypeOffer = adForm.querySelector('#type');
+const selectTimeIn = adForm.querySelector('#timein')
+const selectTimeOut = adForm.querySelector('#timeout')
+const inputPrice = adForm.querySelector('#price');
 
 const setAdFormEnabled = (enabled) => {
   if (enabled) {
@@ -71,6 +73,15 @@ const isValidCapacity = () => {
 };
 isValidCapacity();
 selectRoom.addEventListener('input', isValidCapacity);
+
+const checkInOutChangeListener = (evt) => {
+  const newCheckValue = evt.target.value;
+  selectTimeIn.value = newCheckValue;
+  selectTimeOut.value = newCheckValue;
+};
+
+selectTimeOut.addEventListener('input', checkInOutChangeListener);
+selectTimeIn.addEventListener('input', checkInOutChangeListener);
 
 
 export {setAdFormEnabled};
