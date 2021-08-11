@@ -7,6 +7,7 @@ const selectTypeOffer = adForm.querySelector('#type');
 const selectTimeIn = adForm.querySelector('#timein')
 const selectTimeOut = adForm.querySelector('#timeout')
 const inputPrice = adForm.querySelector('#price');
+const inputAddress = adForm.querySelector('#address');
 
 const setAdFormEnabled = (enabled) => {
   if (enabled) {
@@ -17,6 +18,7 @@ const setAdFormEnabled = (enabled) => {
     inputAdForm.forEach((input) => input.setAttribute('disabled', true));
   }
 };
+setAdFormEnabled(false);
 
 const isValidPrice = () => {
   let minPrice = 0;
@@ -83,6 +85,9 @@ const checkInOutChangeListener = (evt) => {
 selectTimeOut.addEventListener('input', checkInOutChangeListener);
 selectTimeIn.addEventListener('input', checkInOutChangeListener);
 
+const setInputAddressPlaceholder = (lat, lng) => {
+  inputAddress.setAttribute('placeholder', `${lat} : ${lng}`)
+}
 
-export {setAdFormEnabled};
+export {setAdFormEnabled, setInputAddressPlaceholder};
 
